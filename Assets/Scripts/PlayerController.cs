@@ -28,16 +28,6 @@ public class PlayerController : MonoBehaviour {
     private bool gameEnded = false;
     private Vector3 jump;
 
-    // Gun settings
-    public Rigidbody gun;
-    public Rigidbody shot;
-    public Transform shotSpawn;
-    public float fireRate;
-    private float nextFire;
-    private Rigidbody shotBody;
-    public float shotSpeed;
-    public float gunRotateSpeed;
-
     void Start ()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,19 +35,6 @@ public class PlayerController : MonoBehaviour {
         loseText.gameObject.SetActive(false);
         jump = new Vector3(0.0f, 2.0f, 0.0f);
         rb.mass = playerMass;
-    }
-
-    void Update ()
-    {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            shotBody = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-            shotBody.velocity = transform.TransformDirection(shotSpawn.forward * shotSpeed);
-        }
-
-        //gun.transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0) * Time.deltaTime * gunRotateSpeed);
-        gun.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * gunRotateSpeed);
     }
 
     void FixedUpdate ()
